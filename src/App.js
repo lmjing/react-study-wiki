@@ -1,25 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import Content from "./pages/Content";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <header className="App-header">
+                <h1>React Study Wiki</h1>
+                <p>
+                    React 학습 내용 및 실습 화면을 기록합니다.
+                </p>
+            </header>
+            <Content/>
+        </div>
+    );
 }
 
 export default App;
