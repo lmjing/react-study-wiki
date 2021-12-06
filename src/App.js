@@ -6,11 +6,19 @@ function App() {
 
     const [projects, setProjects] = useState([{
         name: 'project1',
-        date: '2021.12.06'
+        date: '2021.12.06',
+        like: 0
     }, {
         name: 'project2',
-        date: '2022.01.06'
+        date: '2022.01.06',
+        like: 0
     }])
+
+    const addLike = (i) => {
+        const newArray = [...projects]
+        newArray[i].like++
+        setProjects(newArray)
+    }
 
     return (
         <div className="App">
@@ -20,11 +28,15 @@ function App() {
             </header>
             <div className="main-container">
                 {
-                    projects.map(project => {
-                        const {name, date} = project
+                    projects.map((project, i) => {
+                        const {name, date, like} = project
                         return (
                             <div className="project">
-                                <h3>{name}</h3>
+                                <h3>
+                                    {name}
+                                    <span onClick={() => addLike(i)}>👍</span>
+                                    {like}
+                                </h3>
                                 <p>{date}</p>
                             </div>
                         )
