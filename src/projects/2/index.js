@@ -46,7 +46,7 @@ function Game() {
     const [history, setHistory] = useState([new Array(9).fill(null)]);
     const [current, setCurrent] = useState(history[0]);
     const [xIsNext, setXIsNext] = useState(true);
-    const [count, setCount] = useState(0);
+    const [isGameOver, setGameOver] = useState(false);
     const [status, setStatus] = useState();
 
     useEffect(() => {
@@ -54,29 +54,34 @@ function Game() {
     }, [history])
 
     useEffect(() => {
-        if (count > 9) return
+        if (isGameOver) return
 
         const winner = calculateWinner(current)
         if (winner) {
             setStatus(`Winner is ${winner}`)
-            setCount(10)
-        } else if (count === 9) {
+            setGameOver(true)
+        } else if (history.length > 9) {
             setStatus(`No Winner! Game Over`)
-            setCount(10)
+            setGameOver(true)
         }
         else {
-            setStatus(`Next Player is ${!xIsNext ? 'X' : 'O'}`)
-            setXIsNext(!xIsNext)
-            setCount(count + 1)
+            const nextIsX = history.length % 2 === 1
+            setStatus(`Next Player is ${nextIsX ? 'X' : 'O'}`)
+            setXIsNext(nextIsX)
         }
     }, [current])
 
     const handleClick = (i) => {
-        if (current[i] || count > 9) return
+        if (current[i] || isGameOver) return
 
         const newSquares = [...current]
         newSquares[i] = xIsNext ? 'X' : 'O'
         setHistory([...history, newSquares])
+    }
+
+    const jumpTo = (i) => {
+        setHistory(history.slice(0, i+1))
+        setGameOver(false)
     }
 
     return (
@@ -86,7 +91,16 @@ function Game() {
             </div>
             <div className="game-info">
                 <div>{status}</div>
-                <ol>{/* TODO */}</ol>
+                <ol>{
+                    history.map((step, move) => {
+                        const desc = move ? `Go to move #${move}` : `Go to game start`;
+                        return (
+                            <li key={move}>
+                                <button onClick={() => jumpTo(move)}>{desc}</button>
+                            </li>
+                        )
+                    })
+                }</ol>
             </div>
         </div>
     );
