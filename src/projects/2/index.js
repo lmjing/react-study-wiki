@@ -12,41 +12,17 @@ function Square(props) {
     );
 }
 
-function Board() {
-    const [squares, setSquares] = useState(new Array(9).fill(null));
-    const [xIsNext, setXIsNext] = useState(true);
-    const [count, setCount] = useState(0);
-    const [status, setStatus] = useState();
+function Board(props) {
+    const {onClick, squares} = props
 
-    useEffect(() => {
-        if (count > 9) return
-
-        const winner = calculateWinner(squares)
-        if (winner) {
-            setStatus(`Winner is ${winner}`)
-            setCount(10)
-        } else {
-            setStatus(`Next Player is ${!xIsNext ? 'X' : 'O'}`)
-            setXIsNext(!xIsNext)
-            setCount(count + 1)
-        }
-    }, [squares])
-
-    const handleClick = (i) => {
-        if (squares[i] || count > 9) return
-
-        const newSquares = [...squares]
-        newSquares[i] = xIsNext ? 'X' : 'O'
-        setSquares(newSquares)
-    }
+    // const [squares, setSquares] = useState(new Array(9).fill(null));
 
     const renderSquare = (i) => {
-        return <Square value={squares[i]} onClick={() => handleClick(i)}/>;
+        return <Square value={squares[i]} onClick={() => onClick(i)}/>;
     }
 
     return (
         <div>
-            <div className="status">{status}</div>
             <div className="board-row">
                 {renderSquare(0)}
                 {renderSquare(1)}
@@ -67,13 +43,49 @@ function Board() {
 }
 
 function Game() {
+    const [history, setHistory] = useState([new Array(9).fill(null)]);
+    const [current, setCurrent] = useState(history[0]);
+    const [xIsNext, setXIsNext] = useState(true);
+    const [count, setCount] = useState(0);
+    const [status, setStatus] = useState();
+
+    useEffect(() => {
+        setCurrent(history[history.length - 1])
+    }, [history])
+
+    useEffect(() => {
+        if (count > 9) return
+
+        const winner = calculateWinner(current)
+        if (winner) {
+            setStatus(`Winner is ${winner}`)
+            setCount(10)
+        } else if (count === 9) {
+            setStatus(`No Winner! Game Over`)
+            setCount(10)
+        }
+        else {
+            setStatus(`Next Player is ${!xIsNext ? 'X' : 'O'}`)
+            setXIsNext(!xIsNext)
+            setCount(count + 1)
+        }
+    }, [current])
+
+    const handleClick = (i) => {
+        if (current[i] || count > 9) return
+
+        const newSquares = [...current]
+        newSquares[i] = xIsNext ? 'X' : 'O'
+        setHistory([...history, newSquares])
+    }
+
     return (
         <div className="game">
             <div className="game-board">
-                <Board/>
+                <Board squares={current} onClick={(i) => handleClick(i)}/>
             </div>
             <div className="game-info">
-                <div>{/* status */}</div>
+                <div>{status}</div>
                 <ol>{/* TODO */}</ol>
             </div>
         </div>
