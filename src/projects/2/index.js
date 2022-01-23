@@ -13,11 +13,13 @@ function Square(props) {
 }
 
 function Board() {
-    const [squares, setSquares] = useState(new Array(9).fill(null))
+    const [squares, setSquares] = useState(new Array(9).fill(null));
+    const [xIsNext, setXIsNext] = useState(true);
 
     const handleClick = (i) => {
         const newSquares = [...squares]
-        newSquares[i] = 'X'
+        newSquares[i] = xIsNext ? 'X' : 'O'
+        setXIsNext(!xIsNext)
         setSquares(newSquares)
     }
 
