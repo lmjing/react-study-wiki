@@ -1,0 +1,2 @@
+(this["webpackJsonpreact-study-wiki"]=this["webpackJsonpreact-study-wiki"]||[]).push([[1],{9:function(t,e,i){"use strict";i.r(e);var c=i(2);e.default=function(){return Object(c.jsx)(c.Fragment,{children:"Project2 Main"})}}}]);
+//# sourceMappingURL=1.7c98b882.chunk.js.map
