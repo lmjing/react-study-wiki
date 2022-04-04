@@ -1,0 +1,1 @@
+{"version":3,"sources":["projects/2/index.js"],"names":["Index"],"mappings":"6IAQeA,UARf,WACI,OACI","file":"static/js/1.f8e68e9e.chunk.js","sourcesContent":["function Index() {\n    return (\n        <>\n            Project2 Main\n        </>\n    )\n}\n\nexport default Index;\n"],"sourceRoot":""}
