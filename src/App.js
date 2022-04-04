@@ -1,19 +1,15 @@
 import './App.css';
 import React, {Suspense, lazy} from 'react';
 import Home from './routes/Home'
-import {Route, Switch, useParams} from 'react-router-dom';
+import {Routes, Route, useParams} from 'react-router-dom';
 
 function App() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <Switch>
-                <Route exact path="/">
-                    <Home/>
-                </Route>
-                <Route path='/project/:projectId'>
-                    <Project/>
-                </Route>
-            </Switch>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/project/:projectId" element={<Project />} />
+            </Routes>
         </Suspense>
     );
 }
