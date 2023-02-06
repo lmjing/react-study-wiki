@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+- 레거시로, node v16 이하에서만 구동 가능
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
