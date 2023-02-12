@@ -1,3 +1,4 @@
+import AppCounter from 'basic/AppCounter';
 import React from 'react';
 import './App.css';
 import Profile from './basic/Profile';
@@ -5,6 +6,7 @@ import Profile from './basic/Profile';
 function App() {
   return (
     <div className="App">
+      <AppCounter />
       <Profile
         name={'James Kim'}
         job={'FE 개발자'}
