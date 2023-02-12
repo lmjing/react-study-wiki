@@ -1,7 +1,7 @@
 import AppCounter from 'basic/AppCounter';
 import React from 'react';
 import './App.css';
-import Profile from './basic/Profile';
+import Profile from './Profile';
 
 function App() {
   return (
