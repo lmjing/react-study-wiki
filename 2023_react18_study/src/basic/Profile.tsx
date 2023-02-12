@@ -1,4 +1,5 @@
 import React from 'react';
+import Avatar from './Avatar';
 
 interface ProfileProps {
   imageUrl: string;
@@ -10,8 +11,7 @@ interface ProfileProps {
 export default function Profile({ imageUrl, name, job, isNew }: ProfileProps) {
   return (
     <div className="profile">
-      <img className="photo" src={imageUrl} alt="profile" />
-      {isNew && <span className="new">New</span>}
+      <Avatar imageUrl={imageUrl} isNew={isNew} />
       <h1>{name}</h1>
       <p>{job}</p>
     </div>
