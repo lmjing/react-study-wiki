@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 interface ProductType {
@@ -29,8 +29,8 @@ export default function Products() {
 
       <div id="content">
         <ul>
-          {products?.map((product) => (
-            <li key={product.id}>
+          {products?.map((product, i) => (
+            <li key={i}>
               <article>
                 <h3>{product.name}</h3>
                 <p>{product.price}</p>
