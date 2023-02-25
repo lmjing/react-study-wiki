@@ -13,10 +13,16 @@ export default function Products() {
     isLoading,
     isError,
     data: products,
-  } = useQuery<Array<ProductType>>(['products', { checked }], async () => {
-    console.log('fetching...');
-    return fetch(`data/${checked ? 'sale_' : ''}products.json`).then((res) => res.json());
-  });
+  } = useQuery<Array<ProductType>>(
+    ['products', { checked }],
+    async () => {
+      console.log('fetching...');
+      return fetch(`data/${checked ? 'sale_' : ''}products.json`).then((res) => res.json());
+    },
+    {
+      staleTime: 1000 * 60 * 5,
+    },
+  );
   const handleChange = () => setChecked((prev) => !prev);
 
   if (isLoading) return <div>Loading...</div>;
@@ -29,8 +35,8 @@ export default function Products() {
 
       <div id="content">
         <ul>
-          {products?.map((product, i) => (
-            <li key={i}>
+          {products?.map((product) => (
+            <li key={product.id}>
               <article>
                 <h3>{product.name}</h3>
                 <p>{product.price}</p>
