@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
 
 interface ProductType {
   name: string;
@@ -7,34 +8,25 @@ interface ProductType {
 }
 
 export default function Products() {
-  const [error, setError] = useState<string | undefined>(undefined);
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState<Array<ProductType>>([]);
   const [checked, setChecked] = useState(false);
-  const [status, setStatus] = useState('Loading...');
+  const {
+    isLoading,
+    isError,
+    data: products,
+  } = useQuery<Array<ProductType>>(
+    ['products', { checked }],
+    async () => {
+      console.log('fetching...');
+      return fetch(`data/${checked ? 'sale_' : ''}products.json`).then((res) => res.json());
+    },
+    {
+      staleTime: 1000 * 60 * 5,
+    },
+  );
   const handleChange = () => setChecked((prev) => !prev);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(undefined);
-    fetch(`../data/${checked ? 'sale_' : ''}products.json`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('🔥뜨끈한 데이터를 네트워크에서 받아옴');
-        setProducts(data);
-      })
-      .catch(() => {
-        setError('error 발생!!');
-        console.error(error);
-      })
-      .finally(() => setLoading(false));
-    return () => {
-      console.log('🧹 깨끗하게 청소하는 일들을 합니다.');
-    };
-  }, [checked]);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error가 발생되었습니다.</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error가 발생되었습니다.</div>;
 
   return (
     <>
@@ -43,7 +35,7 @@ export default function Products() {
 
       <div id="content">
         <ul>
-          {products.map((product) => (
+          {products?.map((product) => (
             <li key={product.id}>
               <article>
                 <h3>{product.name}</h3>
