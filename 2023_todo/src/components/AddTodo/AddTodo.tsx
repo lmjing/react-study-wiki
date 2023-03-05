@@ -1,4 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import style from "./AddTodo.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(style);
 
 interface TodoInputProps {
   handleAdd: (value: string) => void;
@@ -13,7 +17,7 @@ export default function TodoInput({ handleAdd }: TodoInputProps) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!value) {
+    if (value.trim().length === 0) {
       alert("TODO 값을 입력하세요.");
       return;
     }
@@ -24,14 +28,17 @@ export default function TodoInput({ handleAdd }: TodoInputProps) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="todoForm" className={cx("form")}>
         <input
           type="text"
           placeholder="Add Todo"
           value={value}
           onChange={handleChange}
+          className={cx("input")}
         />
-        <input type="submit" value="Submit" />
+        <button type="submit" form="todoForm" className={cx("button")}>
+          Add
+        </button>
       </form>
     </div>
   );

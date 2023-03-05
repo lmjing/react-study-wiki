@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import TodoList from "./components/TodoList";
-import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList/TodoList";
+import TodoInput from "./components/AddTodo/AddTodo";
 import { FilterType, TodoType } from "./types/types";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Header/Header";
+import { randomUUID } from "crypto";
+const { v4: uuidv4 } = require("uuid");
 
 function App() {
   const KEY = "todoList";
@@ -12,24 +14,21 @@ function App() {
   const [todoList, setTodoList] = useState<Array<TodoType>>([]);
   const [showList, setShowList] = useState<Array<TodoType>>([]);
 
-  const handleChecked = (index: number, checked: boolean) => {
-    setTodoList((prev) => {
-      const newList = [...prev];
-      newList[index].completed = checked;
-      return newList;
-    });
+  const handleUpdate = (updated: TodoType) => {
+    setTodoList((prev) =>
+      prev.map((item) => (item.id === updated.id ? updated : item))
+    );
   };
 
-  const handleDeleted = (index: number) => {
+  const handleDeleted = (id: number) => {
     setTodoList((prev) => {
-      const newList = [...prev];
-      newList.splice(index, 1);
-      return newList;
+      return prev.filter((item) => item.id !== id);
     });
   };
 
   const handleAdd = (value: string) => {
-    setTodoList((prev) => [...prev, { text: value, completed: false }]);
+    const id = uuidv4();
+    setTodoList((prev) => [...prev, { id, text: value, completed: false }]);
   };
 
   const filterList = () => {
@@ -57,17 +56,15 @@ function App() {
   }, [todoList, filter]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <NavBar handleNavClick={setFilter} />
-        <TodoList
-          data={showList}
-          handleChecked={handleChecked}
-          handleDeleted={handleDeleted}
-        />
-        <TodoInput handleAdd={handleAdd} />
-      </header>
-    </div>
+    <>
+      <NavBar handleNavClick={setFilter} selected={filter} />
+      <TodoList
+        todoList={showList}
+        handleUpdate={handleUpdate}
+        handleDeleted={handleDeleted}
+      />
+      <TodoInput handleAdd={handleAdd} />
+    </>
   );
 }
 
