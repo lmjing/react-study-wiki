@@ -5,10 +5,10 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(style);
 
 interface TodoInputProps {
-  handleAdd: (value: string) => void;
+  onAdd: (value: string) => void;
 }
 
-export default function TodoInput({ handleAdd }: TodoInputProps) {
+export default function TodoInput({ onAdd }: TodoInputProps) {
   const [value, setValue] = useState<string>("");
 
   const handleChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ export default function TodoInput({ handleAdd }: TodoInputProps) {
       return;
     }
 
-    handleAdd(value);
+    onAdd(value);
     setValue("");
   };
 
