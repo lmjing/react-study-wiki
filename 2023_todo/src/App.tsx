@@ -5,6 +5,7 @@ import TodoInput from "./components/AddTodo/AddTodo";
 import { FilterType, TodoType } from "./types/types";
 import NavBar from "./components/Header/Header";
 import { randomUUID } from "crypto";
+import { DarkModeProvider } from "./context/DarkModeContext";
 const { v4: uuidv4 } = require("uuid");
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
   }, [todoList, filter]);
 
   return (
-    <>
+    <DarkModeProvider>
       <NavBar handleNavClick={setFilter} selected={filter} />
       <TodoList
         todoList={showList}
@@ -64,7 +65,7 @@ function App() {
         handleDeleted={handleDeleted}
       />
       <TodoInput handleAdd={handleAdd} />
-    </>
+    </DarkModeProvider>
   );
 }
 
