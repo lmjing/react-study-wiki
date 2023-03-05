@@ -1,18 +1,22 @@
 {
-  "name": "basic",
+  "name": "2023_todo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "immer": "^9.0.19",
-    "prettier": "^2.8.3",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "classnames": "^2.3.2",
+    "node-sass": "^8.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-query": "^3.39.3",
+    "react-icons": "^4.7.1",
     "react-scripts": "5.0.1",
-    "use-immer": "^0.8.1",
+    "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -38,13 +42,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
-    "eslint": "^8.33.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "typescript": "^4.9.5"
   }
 }
